@@ -183,7 +183,7 @@ img {
 /* Hero Banner */
 #hero-banner {
     position: relative;
-    height: 500px;
+    height: 600px; /* Increased height to accommodate more content */
     width: 100%;
     background: url('../assets/img/top.jpg') no-repeat center center/cover;
     display: flex;
@@ -206,6 +206,8 @@ img {
     position: relative;
     z-index: 10;
     color: #f0f0f0;
+    max-width: 800px;
+    padding: 0 20px;
 }
 
 .hero-content h1 {
@@ -217,11 +219,68 @@ img {
 }
 
 .hero-content h2 {
-    font-size: 2rem;
-    font-weight: 400;
+    font-size: 2.5rem;
+    font-weight: 500;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.5);
     color: #e0e0e0;
     letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-content .btn {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    text-shadow: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-content .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Media queries for responsive hero banner */
+@media(max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+}
+
+@media(max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+    
+    .hero-content .btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
 }
 
 /* About Section */
