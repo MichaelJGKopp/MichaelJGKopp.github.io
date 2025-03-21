@@ -25,6 +25,15 @@
         </div>
     </nav>
 
+    <!-- Hero Banner -->
+    <header id="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Michael Kopp</h1>
+            <h2>Java Developer</h2>
+        </div>
+    </header>
+
     <!-- Hero Section -->
     <header id="home">
         <div class="container">
@@ -41,6 +50,7 @@
         <div class="container">
             <h2>About Me</h2>
             <div class="about-content">
+                <img src="assets/img/foto_small.jpg" alt="Michael Kopp" class="profile-picture">
                 <div class="about-text">
                     <p>I am a Java Developer with a strong background in physics, transitioning my analytical skills and problem-solving abilities to software development. My experience in modeling complex systems and working in interdisciplinary teams has equipped me with a unique perspective on software engineering challenges.</p>
                     <p>Currently enhancing my technical skills through intensive Java Backend training at Digital Career Institute, I bring a scientific approach to coding and a passion for creating efficient, maintainable solutions.</p>
@@ -194,55 +204,80 @@
         <div class="container">
             <h2>Projects</h2>
             <div class="projects-grid">
-                <!-- These are placeholder projects that you should replace with your actual projects -->
                 <div class="project-card">
+                    <div class="project-gallery">
+                        <div class="gallery-thumbnails">
+                            <img src="assets/img/library-app.png" alt="Library App Main Screen" class="thumbnail active" data-index="0">
+                            <img src="assets/img/library-app-login.png" alt="Library App Feature" class="thumbnail" data-index="1">
+                            <img src="assets/img/library-app-search.png" alt="Library App Detail" class="thumbnail" data-index="2">
+                            <img src="assets/img/library-app-checkout.png" alt="Library App Admin" class="thumbnail" data-index="3">
+                        </div>
+                        <div class="project-image">
+                            <img src="assets/img/library-app.png" alt="Library App Screenshot" id="featured-image">
+                            <button class="fullscreen-btn" aria-label="View fullscreen gallery">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div class="project-info">
-                        <h3>Spring Boot REST API</h3>
-                        <p>A RESTful API built with Spring Boot demonstrating CRUD operations with a PostgreSQL database.</p>
+                        <h3>Full Stack Library Management App</h3>
+                        <p>A comprehensive library management system with a secure Spring Boot backend and React frontend. Features include book browsing, checkout management, and user authentication with Okta.</p>
                         <div class="tech-stack">
-                            <span>Java</span>
-                            <span>Spring Boot</span>
-                            <span>PostgreSQL</span>
-                            <span>REST API</span>
+                            <button class="tech-btn">Java</button>
+                            <button class="tech-btn">Spring Boot</button>
+                            <button class="tech-btn">REST API</button>
+                            <button class="tech-btn">React</button>
+                            <button class="tech-btn">TypeScript</button>
+                            <button class="tech-btn">Vite</button>
+                            <button class="tech-btn">Okta Security</button>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="btn btn-sm">View Code</a>
-                            <a href="#" class="btn btn-sm">Live Demo</a>
+                            <a href="https://github.com/MichaelJGKopp/react-sb3-library" class="btn btn-sm" target="_blank">View Code</a>
+                            <!-- <a href="#" class="btn btn-sm">Live Demo</a> -->
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Microservice Architecture Example</h3>
-                        <p>A demonstration of microservices communication using Spring Cloud components.</p>
-                        <div class="tech-stack">
-                            <span>Java</span>
-                            <span>Spring Boot</span>
-                            <span>Spring Cloud</span>
-                            <span>Docker</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-sm">View Code</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>Java Data Analysis Tool</h3>
-                        <p>An application leveraging my physics background to process and visualize scientific data.</p>
-                        <div class="tech-stack">
-                            <span>Java</span>
-                            <span>JavaFX</span>
-                            <span>JUnit</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-sm">View Code</a>
-                        </div>
-                    </div>
-                </div>
+                <!-- Additional project cards can be uncommented and modified when you have more projects -->
+                <!-- <div class="project-card">...</div> -->
+                <!-- <div class="project-card">...</div> -->
             </div>
         </div>
     </section>
+
+    <!-- Image Carousel Modal -->
+    <div id="image-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="assets/img/library-app.png" alt="Library App Main Screen">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/library-app-login.png" alt="Library App Feature">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/library-app-search.png" alt="Library App Detail">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/library-app-checkout.png" alt="Library App Admin">
+                    </div>
+                </div>
+                <a class="carousel-control prev" role="button">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="carousel-control next" role="button">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active" data-index="0"></span>
+                <span class="indicator" data-index="1"></span>
+                <span class="indicator" data-index="2"></span>
+                <span class="indicator" data-index="3"></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Contact Section -->
     <section id="contact" class="section bg-light">
@@ -252,7 +287,7 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <p>email@example.com</p>
+                    <p><a href="mailto:MichaelJGKopp@gmail.com" target="_blank">MichaelJGKopp@gmail.com</a></p>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-github"></i>
@@ -260,7 +295,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-linkedin"></i>
-                    <p><a href="#" target="_blank">LinkedIn Profile</a></p>
+                    <p><a href="https://www.linkedin.com/in/michaeljgkopp" target="_blank">LinkedIn Profile</a></p>
                 </div>
             </div>
         </div>
@@ -269,7 +304,7 @@
     <!-- Footer -->
     <footer id="main-footer">
         <div class="container">
-            <p>&copy; 2024 Michael Kopp. All Rights Reserved.</p>
+            <p>&copy; 2025 Michael Kopp. All Rights Reserved.</p>
         </div>
     </footer>
 
