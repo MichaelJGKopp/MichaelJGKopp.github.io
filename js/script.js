@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   let currentModalIndex = 0;
   let currentModalSlides = [];
-  let intervalId;
   
   // Set up each project carousel
   projectCarousels.forEach(carousel => {
@@ -166,9 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show the modal
     modal.style.display = 'block';
     
-    // Start auto rotation
-    startCarousel();
-    
     // Update indicator click events
     updateModalIndicatorEvents();
   }
@@ -203,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
     modalIndicators.querySelectorAll('.indicator').forEach((indicator, index) => {
       indicator.addEventListener('click', () => {
         updateModalSlide(index);
-        resetCarouselTimer();
       });
     });
   }
@@ -211,25 +206,21 @@ document.addEventListener('DOMContentLoaded', function() {
   // Modal navigation buttons
   modalNextButton.addEventListener('click', () => {
     nextModalSlide();
-    resetCarouselTimer();
   });
   
   modalPrevButton.addEventListener('click', () => {
     prevModalSlide();
-    resetCarouselTimer();
   });
   
   // Close modal
   closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
-    stopCarousel();
   });
   
   // Close modal when clicking outside the content
   window.addEventListener('click', (event) => {
     if (event.target === modal) {
       modal.style.display = 'none';
-      stopCarousel();
     }
   });
   
@@ -238,30 +229,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (modal.style.display === 'block') {
       if (event.key === 'ArrowLeft') {
         prevModalSlide();
-        resetCarouselTimer();
       } else if (event.key === 'ArrowRight') {
         nextModalSlide();
-        resetCarouselTimer();
       } else if (event.key === 'Escape') {
         modal.style.display = 'none';
-        stopCarousel();
       }
     }
   });
   
-  // Start auto rotation for modal
-  function startCarousel() {
-    intervalId = setInterval(nextModalSlide, 4000);
-  }
-  
-  // Stop auto rotation for modal
-  function stopCarousel() {
-    clearInterval(intervalId);
-  }
-  
-  // Reset timer when manually navigating
-  function resetCarouselTimer() {
-    stopCarousel();
-    startCarousel();
-  }
+  // These functions have been removed as the carousel is now static
 });
