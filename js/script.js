@@ -64,117 +64,183 @@ checkTimelineItemsVisibility();
 // Check on scroll
 window.addEventListener('scroll', checkTimelineItemsVisibility);
 
-// Image Gallery and Carousel
+// Project carousel functionality
 document.addEventListener('DOMContentLoaded', function() {
-  // Gallery Thumbnails
-  const thumbnails = document.querySelectorAll('.thumbnail');
-  const featuredImage = document.getElementById('featured-image');
+  // Initialize all project carousels
+  const projectCarousels = document.querySelectorAll('.project-carousel');
   const modal = document.getElementById('image-modal');
   const closeModal = document.querySelector('.close-modal');
-  const fullscreenBtn = document.querySelector('.fullscreen-btn');
-  const carouselItems = document.querySelectorAll('.carousel-item');
-  const prevButton = document.querySelector('.carousel-control.prev');
-  const nextButton = document.querySelector('.carousel-control.next');
-  const indicators = document.querySelectorAll('.indicator');
+  const modalCarouselInner = document.querySelector('.modal .carousel-inner');
+  const modalIndicators = document.querySelector('.modal .carousel-indicators');
+  const modalPrevButton = document.querySelector('.modal .carousel-control.prev');
+  const modalNextButton = document.querySelector('.modal .carousel-control.next');
   
-  let currentIndex = 0;
+  let currentModalIndex = 0;
+  let currentModalSlides = [];
   let intervalId;
   
-  // Update thumbnails and featured image
-  function updateActiveImage(index) {
-    // Update thumbnails
-    thumbnails.forEach(thumb => {
-      thumb.classList.remove('active');
+  // Set up each project carousel
+  projectCarousels.forEach(carousel => {
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.indicator');
+    const prevBtn = carousel.querySelector('.prev');
+    const nextBtn = carousel.querySelector('.next');
+    const fullscreenBtn = carousel.querySelector('.fullscreen-btn');
+    
+    let currentIndex = 0;
+    
+    // Function to update active slide
+    function showSlide(index) {
+      // Remove active class from all slides and indicators
+      slides.forEach(slide => slide.classList.remove('active'));
+      indicators.forEach(dot => dot.classList.remove('active'));
+      
+      // Add active class to current slide and indicator
+      slides[index].classList.add('active');
+      indicators[index].classList.add('active');
+      
+      currentIndex = index;
+    }
+    
+    // Event listeners for navigation
+    prevBtn.addEventListener('click', () => {
+      let newIndex = currentIndex - 1;
+      if (newIndex < 0) newIndex = slides.length - 1;
+      showSlide(newIndex);
     });
-    thumbnails[index].classList.add('active');
     
-    // Update featured image
-    featuredImage.src = thumbnails[index].src;
-    
-    // Update carousel
-    carouselItems.forEach(item => {
-      item.classList.remove('active');
+    nextBtn.addEventListener('click', () => {
+      let newIndex = currentIndex + 1;
+      if (newIndex >= slides.length) newIndex = 0;
+      showSlide(newIndex);
     });
-    carouselItems[index].classList.add('active');
     
-    // Update indicators
-    indicators.forEach(ind => {
-      ind.classList.remove('active');
+    // Add click events for indicators
+    indicators.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+      });
     });
-    indicators[index].classList.add('active');
     
-    // Update current index
-    currentIndex = index;
-  }
-  
-  // Thumbnail click
-  thumbnails.forEach(thumbnail => {
-    thumbnail.addEventListener('click', function() {
-      const index = parseInt(this.dataset.index);
-      updateActiveImage(index);
+    // Open fullscreen gallery modal
+    fullscreenBtn.addEventListener('click', () => {
+      openGalleryModal(carousel, currentIndex);
     });
   });
   
-  // Open modal on fullscreen button click
-  fullscreenBtn.addEventListener('click', function() {
+  // Function to open the gallery modal
+  function openGalleryModal(carousel, startIndex) {
+    // Get all slide images from this carousel
+    const projectType = carousel.querySelector('.carousel-slide.active').dataset.project;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    
+    // Clear previous modal content
+    modalCarouselInner.innerHTML = '';
+    modalIndicators.innerHTML = '';
+    
+    // Create carousel items in the modal
+    slides.forEach((slide, index) => {
+      // Create carousel item
+      const carouselItem = document.createElement('div');
+      carouselItem.className = index === startIndex ? 'carousel-item active' : 'carousel-item';
+      
+      // Create image
+      const img = document.createElement('img');
+      img.src = slide.src;
+      img.alt = slide.alt;
+      
+      carouselItem.appendChild(img);
+      modalCarouselInner.appendChild(carouselItem);
+      
+      // Create indicator
+      const indicator = document.createElement('span');
+      indicator.className = index === startIndex ? 'indicator active' : 'indicator';
+      indicator.dataset.index = index;
+      modalIndicators.appendChild(indicator);
+    });
+    
+    // Store current modal slides for navigation
+    currentModalSlides = Array.from(modalCarouselInner.querySelectorAll('.carousel-item'));
+    currentModalIndex = startIndex;
+    
+    // Show the modal
     modal.style.display = 'block';
+    
+    // Start auto rotation
     startCarousel();
+    
+    // Update indicator click events
+    updateModalIndicatorEvents();
+  }
+  
+  // Update active slide in modal
+  function updateModalSlide(index) {
+    // Remove active class from all slides and indicators
+    currentModalSlides.forEach(slide => slide.classList.remove('active'));
+    modalIndicators.querySelectorAll('.indicator').forEach(dot => dot.classList.remove('active'));
+    
+    // Add active class to current slide and indicator
+    currentModalSlides[index].classList.add('active');
+    modalIndicators.querySelectorAll('.indicator')[index].classList.add('active');
+    
+    currentModalIndex = index;
+  }
+  
+  // Modal next slide
+  function nextModalSlide() {
+    const newIndex = (currentModalIndex + 1) % currentModalSlides.length;
+    updateModalSlide(newIndex);
+  }
+  
+  // Modal previous slide
+  function prevModalSlide() {
+    const newIndex = (currentModalIndex - 1 + currentModalSlides.length) % currentModalSlides.length;
+    updateModalSlide(newIndex);
+  }
+  
+  // Update indicator click events in modal
+  function updateModalIndicatorEvents() {
+    modalIndicators.querySelectorAll('.indicator').forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        updateModalSlide(index);
+        resetCarouselTimer();
+      });
+    });
+  }
+  
+  // Modal navigation buttons
+  modalNextButton.addEventListener('click', () => {
+    nextModalSlide();
+    resetCarouselTimer();
+  });
+  
+  modalPrevButton.addEventListener('click', () => {
+    prevModalSlide();
+    resetCarouselTimer();
   });
   
   // Close modal
-  closeModal.addEventListener('click', function() {
+  closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
     stopCarousel();
   });
   
   // Close modal when clicking outside the content
-  window.addEventListener('click', function(event) {
+  window.addEventListener('click', (event) => {
     if (event.target === modal) {
       modal.style.display = 'none';
       stopCarousel();
     }
   });
   
-  // Next slide
-  function nextSlide() {
-    const newIndex = (currentIndex + 1) % carouselItems.length;
-    updateActiveImage(newIndex);
-  }
-  
-  // Previous slide
-  function prevSlide() {
-    const newIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-    updateActiveImage(newIndex);
-  }
-  
-  // Navigation buttons
-  nextButton.addEventListener('click', function() {
-    nextSlide();
-    resetCarouselTimer();
-  });
-  
-  prevButton.addEventListener('click', function() {
-    prevSlide();
-    resetCarouselTimer();
-  });
-  
-  // Indicators click
-  indicators.forEach(indicator => {
-    indicator.addEventListener('click', function() {
-      const index = parseInt(this.dataset.index);
-      updateActiveImage(index);
-      resetCarouselTimer();
-    });
-  });
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', function(event) {
+  // Keyboard navigation for modal
+  document.addEventListener('keydown', (event) => {
     if (modal.style.display === 'block') {
       if (event.key === 'ArrowLeft') {
-        prevSlide();
+        prevModalSlide();
         resetCarouselTimer();
       } else if (event.key === 'ArrowRight') {
-        nextSlide();
+        nextModalSlide();
         resetCarouselTimer();
       } else if (event.key === 'Escape') {
         modal.style.display = 'none';
@@ -183,12 +249,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Start auto rotation
+  // Start auto rotation for modal
   function startCarousel() {
-    intervalId = setInterval(nextSlide, 4000);
+    intervalId = setInterval(nextModalSlide, 4000);
   }
   
-  // Stop auto rotation
+  // Stop auto rotation for modal
   function stopCarousel() {
     clearInterval(intervalId);
   }

@@ -197,14 +197,25 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-gallery">
-                        <div class="gallery-thumbnails">
-                            <img src="assets/img/library-app.png" alt="Library App Main Screen" class="thumbnail active" data-index="0">
-                            <img src="assets/img/library-app-login.png" alt="Library App Feature" class="thumbnail" data-index="1">
-                            <img src="assets/img/library-app-search.png" alt="Library App Detail" class="thumbnail" data-index="2">
-                            <img src="assets/img/library-app-checkout.png" alt="Library App Admin" class="thumbnail" data-index="3">
-                        </div>
-                        <div class="project-image">
-                            <img src="assets/img/library-app.png" alt="Library App Screenshot" id="featured-image">
+                        <div class="project-carousel">
+                            <div class="carousel-slides">
+                                <img src="assets/img/library-app.png" alt="Library App Main Screen" class="carousel-slide active" data-project="library">
+                                <img src="assets/img/library-app-login.png" alt="Library App Feature" class="carousel-slide" data-project="library">
+                                <img src="assets/img/library-app-search.png" alt="Library App Detail" class="carousel-slide" data-project="library">
+                                <img src="assets/img/library-app-checkout.png" alt="Library App Admin" class="carousel-slide" data-project="library">
+                            </div>
+                            <button class="carousel-control prev" aria-label="Previous image">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-control next" aria-label="Next image">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div class="carousel-indicators">
+                                <span class="indicator active" data-index="0"></span>
+                                <span class="indicator" data-index="1"></span>
+                                <span class="indicator" data-index="2"></span>
+                                <span class="indicator" data-index="3"></span>
+                            </div>
                             <button class="fullscreen-btn" aria-label="View fullscreen gallery">
                                 <i class="fas fa-expand"></i>
                             </button>
@@ -224,6 +235,50 @@
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/MichaelJGKopp/react-sb3-library" class="btn btn-sm" target="_blank">View Code</a>
+                            <!-- <a href="#" class="btn btn-sm">Live Demo</a> -->
+                        </div>
+                    </div>
+                </div>
+                 <div class="project-card">
+                    <div class="project-gallery">
+                        <div class="project-carousel">
+                            <div class="carousel-slides">
+                                <img src="assets/img/Moments-Event-Platform.png" alt="Moments Event Platform Main Screen" class="carousel-slide active" data-project="moments">
+                                <img src="assets/img/Moments-Event-Platform-Diagram.png" alt="System Architecture" class="carousel-slide" data-project="moments">
+                            </div>
+                            <button class="carousel-control prev" aria-label="Previous image">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel-control next" aria-label="Next image">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            <div class="carousel-indicators">
+                                <span class="indicator active" data-index="0"></span>
+                                <span class="indicator" data-index="1"></span>
+                            </div>
+                            <button class="fullscreen-btn" aria-label="View fullscreen gallery">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Moments Event Platform</h3>
+                        <p>A secure and scalable event management platform. Features include event creation, user registration, and ticket purchasing.</p>
+                        <div class="tech-stack">
+                            <button class="tech-btn">Java</button>
+                            <button class="tech-btn">Spring Boot</button>
+                            <button class="tech-btn">Microservices</button>
+                            <button class="tech-btn">REST</button>
+                            <button class="tech-btn">Spring Cloud</button>
+                            <button class="tech-btn">Resilience4j</button>
+                            <button class="tech-btn">Hibernate ORM</button>
+                            <button class="tech-btn">Keycloak Oauth2</button>
+                            <button class="tech-btn">Eureka Discovery</button>
+                            <button class="tech-btn">Kafka</button>
+                            <button class="tech-btn">Thymeleaf Front-End</button>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/Team-OMO-Org/Moments-Event-Platform" class="btn btn-sm" target="_blank">View Code</a>
                             <!-- <a href="#" class="btn btn-sm">Live Demo</a> -->
                         </div>
                     </div>
