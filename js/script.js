@@ -65,9 +65,19 @@ checkTimelineItemsVisibility();
 window.addEventListener('scroll', checkTimelineItemsVisibility);
 
 // Project carousel functionality
-document.addEventListener('DOMContentLoaded', function() {
+function initCarousels() {
+  console.log('Initializing carousels...');
   // Initialize all project carousels
   const projectCarousels = document.querySelectorAll('.project-carousel');
+  
+  // Check if we found any carousels
+  if (projectCarousels.length === 0) {
+    console.error('No project carousels found!');
+    return;
+  }
+  
+  console.log('Found ' + projectCarousels.length + ' carousels');
+  
   const modal = document.getElementById('image-modal');
   const closeModal = document.querySelector('.close-modal');
   const modalCarouselInner = document.querySelector('.modal .carousel-inner');
@@ -236,6 +246,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
-  
-  // These functions have been removed as the carousel is now static
-});
+}
+
+// More robust carousel initialization
+function initCarouselsWhenReady() {
+  console.log('Attempting to initialize carousels...');
+  try {
+    if (document.querySelectorAll('.project-carousel').length > 0) {
+      console.log('Found carousel elements, initializing...');
+      initCarousels();
+    } else {
+      console.warn('No carousel elements found yet, trying again in 100ms...');
+      setTimeout(initCarouselsWhenReady, 100);
+    }
+  } catch (error) {
+    console.error('Error initializing carousels:', error);
+  }
+}
+
+// Initialize carousels when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initCarouselsWhenReady);
+
+// Backup initialization in case DOMContentLoaded has already fired
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  console.log('Document already interactive or complete, initializing soon...');
+  setTimeout(initCarouselsWhenReady, 100);
+}
